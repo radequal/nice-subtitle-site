@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Session - {{ session.description }}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets/{{ template_details.name }}/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/assets/{{ template_details.name }}/css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/assets/{{ template_details.name }}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <section id="services" class="services bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2>What do you want to do?</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-pencil fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>WRITE</strong>
+                                </h4>
+                                <p>If you're typing the subtitles for the world to see, this is the page for you.</p>
+                                <a href="/session/{{ session.uid }}/write" class="btn btn-light">Write subtitles</a>
+                            </div>
+                        </div>
+                        <div class="col-md-offset-2 col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-eye fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>VIEW</strong>
+                                </h4>
+                                <p>If you want to view subtitles as they're being written, this is the page for you.</p>
+                                <a href="/session/{{ session.uid }}/view" class="btn btn-light">View subtitles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- jQuery -->
+    <script src="/assets/{{ template_details.name }}/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/{{ template_details.name }}/js/bootstrap.min.js"></script>
+</body>
+
+</html>

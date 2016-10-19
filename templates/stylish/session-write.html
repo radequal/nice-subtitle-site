@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Session - {{ session.description }}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets/{{ template_details.name }}/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/assets/{{ template_details.name }}/css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/assets/{{ template_details.name }}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+    #preview {
+        height: 300px;
+    }
+    #preview pre {
+        height: 300px;
+        overflow: scroll;
+    }
+
+
+    </style>
+
+</head>
+
+<body>
+
+
+<div class="container-fluid">
+    <div class="row" id="preview">
+        <div class="col-md-12">
+            <h2>{{ session.description }}</h2>
+            <div class="btn-group pull-right">
+                <a href="/session/{{ session.uid }}/view" target="_blank" class="btn btn-primary">View output</a>
+                <a href="/actions/clear-session-data?uid={{ session.uid }}&view=write" class="btn btn-primary">Wipe clean!</a>
+            </div>
+            <div class="subtitle-history-container">
+                <div class="well well-card">
+                    <p class="lead">Preview</p>
+                    <pre>{{ session.content|safe }}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="input">
+        <div class="col-md-12">
+            <div class="subtitle-input-container">
+                <form>
+                    <textarea class="form-control" rows="7" id="subtitle-input"></textarea>
+                    <a href="#" id="directionToggle" class="btn btn-primary">LTR</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+    <!-- jQuery -->
+    <script src="/assets/{{ template_details.name }}/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/{{ template_details.name }}/js/bootstrap.min.js"></script>
+
+
+
+
+<script>
+$("#subtitle-input").keyup(function (e) {
+  if (e.keyCode == 13) {
+      // if enter button
+      var subtitle_value = $(this).val();
+      var subtitle_html;
+      if ($(this).val() == "") {
+        subtitle_html = "<p>&nbsp;</p>"
+      } else {
+        subtitle_html = "<p>"+ subtitle_value +"</p>";
+      }
+
+        $.post( "/actions/subtitles-save", { text: subtitle_html, uid: "{{ session.uid }}" })
+          .done(function( data ) {
+          $(".subtitle-history-container pre").html(data);
+          $("#subtitle-input").val("");
+                $(".subtitle-history-container pre").scrollTop($(".subtitle-history-container pre")[0].scrollHeight);
+          })
+          .fail(function( data ) {
+            alert("failed, try again:\n\n"+ subtitle_value)
+          });
+  }
+});
+
+
+$('#directionToggle').click(function(e){
+    e.preventDefault();
+    var direction = $(this).html().trim();
+    if (direction == "LTR") {
+        $(this).html("RTL")
+        $("#subtitle-input, #preview pre").css("direction", "rtl")
+    } else {
+        $(this).html("LTR")
+        $("#subtitle-input, #preview pre").css("direction", "ltr")
+    }
+})
+
+</script>
+
+
+
+</body>
+
+</html>

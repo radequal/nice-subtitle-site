@@ -1,0 +1,147 @@
+<html>
+    <head>
+    <!-- Bootstrap 3.3.4 -->
+    <link href="/assets/{{ template_details.name }}/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        body {
+            background: black;
+        }
+        .css-settings {
+            background: white;
+            padding: 10px;
+            width: 100%;
+        }
+        .container-output {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+        }
+        .output {
+            border-top: 1px solid white;
+            height: 70px;
+            background: black;
+            padding: 4px 20px;
+            color: white;
+            overflow: hidden;
+        }
+    </style>
+
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="css-settings">
+                <h2>{{ session.description }}</h2>
+
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Refresh cycle (miliseconds)</label>
+                    <div class="col-sm-10">
+                      <input name="refresh" class="form-control" value="1000">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Background colour (hex code)</label>
+                    <div class="col-sm-10">
+                      <input name="bg-colour" class="form-control" value="#000000">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Font colour (hex code)</label>
+                    <div class="col-sm-10">
+                      <input name="font-colour" class="form-control" value="#FFFFFF">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Font size (px)</label>
+                    <div class="col-sm-10">
+                      <input name="font-size" class="form-control" value="24">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Box height (px)</label>
+                    <div class="col-sm-10">
+                      <input name="box-height" class="form-control" value="110">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Padding (px)</label>
+                    <div class="col-sm-10">
+                      <input name="box-padding" class="form-control" value="10px 20px">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Text direction</label>
+                    <div class="col-sm-10">
+                      <a href="#" id="directionToggle" class="btn btn-primary">LTR</a>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Clear session data</label>
+                    <div class="col-sm-10">
+                      <a href="/actions/clear-session-data?uid={{ session.uid }}&view=view" class="btn btn-primary">Wipe clean!</a>
+                    </div>
+                  </div>
+                </form>
+
+            </div>
+        </div>
+
+
+        <div class="container container-output">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="output">
+                        {{ session.uid }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- jQuery -->
+        <script src="/assets/{{ template_details.name }}/js/jquery.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/assets/{{ template_details.name }}/js/bootstrap.min.js"></script>
+
+
+        <script>
+            $('#directionToggle').click(function(e){
+                e.preventDefault();
+                var direction = $(this).html().trim();
+                if (direction == "LTR") {
+                    $(this).html("RTL")
+                    $(".output").css("direction", "rtl")
+                } else {
+                    $(this).html("LTR")
+                    $(".output").css("direction", "ltr")
+                }
+            })
+
+            var refreshCycle = parseInt($("input[name='refresh']").val());
+            var getContent = setInterval(contentFetch, refreshCycle);
+
+            function contentFetch() {
+                $("body").css("background-color", $("input[name='bg-colour']").val())
+                $(".output").css("background-color", $("input[name='bg-colour']").val())
+                $(".output").css("color", $("input[name='font-colour']").val())
+                $(".output").css("color", $("input[name='font-colour']").val())
+                $(".output").css("font-size", $("input[name='font-size']").val())
+                $(".output").css("height", $("input[name='box-height']").val())
+                $(".output").css("padding", $("input[name='box-padding']").val())
+
+                $.post( "/actions/subtitles-get-content", { uid: "{{ session.uid }}" })
+              .done(function( data ) {
+              $(".output").html(data);
+                    $(".output").scrollTop($(".output")[0].scrollHeight);
+              })
+            }
+        </script>
+    </body>
+</html>
