@@ -1,0 +1,4 @@
+cron:
+- description: Delete saved content
+  url: /cron/flush-session-content
+  schedule: every 12 hours
