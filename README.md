@@ -1,10 +1,5 @@
-# nice-subtitle-site
-A subtitle workflow used for live streams.
-
-
-
-
 # Nice Subtitle Site - User Guide
+A subtitle workflow used for live streams.
 
 ## Introduction
 The Nice Subtitle Site is a simple web UI that allows anyone on the web to create subtitle sessions. These sessions are split into two use cases
@@ -39,7 +34,7 @@ https://developer.mozilla.org/en-US/docs/Learn/Common_questions/How_do_you_host_
 ## How to use the site
 Simple, follow the following steps, split out by user role.
 
-__ If you DON’T already have a session__
+__If you DON’T already have a session__
 * Go to https://nss-app.appspot.com
 * Start a new session by clicking the button “New session”
 * Pick a suitable name, and a unique link will be created for you
